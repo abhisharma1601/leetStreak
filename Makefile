@@ -1,7 +1,7 @@
 .PHONY: run migrate test test-email trigger db-stats lint
 
 run:
-	uvicorn app.main:app --reload
+	uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 migrate:
 	alembic upgrade head
