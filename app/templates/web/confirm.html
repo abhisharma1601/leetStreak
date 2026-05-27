@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeetStreak — Confirm</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f5f6fa; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .card { background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: 40px 36px; max-width: 480px; width: 100%; text-align: center; }
+    .icon { font-size: 48px; margin-bottom: 16px; }
+    h1 { font-size: 22px; color: #2d3436; margin-bottom: 8px; }
+    .question { font-size: 18px; font-weight: bold; color: #0984e3; margin: 16px 0 8px; }
+    .streak { font-size: 14px; color: #636e72; margin-bottom: 28px; }
+    .btn { display: inline-block; width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+    .btn-done { background: #00b894; color: #fff; }
+    .btn-skip { background: #b2bec3; color: #fff; }
+    .btn:hover { opacity: 0.9; }
+    .note { font-size: 12px; color: #b2bec3; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    {% if action == "DONE" %}
+      <div class="icon">✅</div>
+      <h1>Mark as solved?</h1>
+      <p class="question">{{ question.title }}</p>
+      <p class="streak">🔥 Current streak: {{ current_streak }} day{{ 's' if current_streak != 1 else '' }}</p>
+      <form method="POST" action="/respond">
+        <input type="hidden" name="token" value="{{ token }}">
+        <input type="hidden" name="action" value="DONE">
+        <button type="submit" class="btn btn-done">Yes, I solved it!</button>
+      </form>
+    {% else %}
+      <div class="icon">⏭</div>
+      <h1>Skip today?</h1>
+      <p class="question">{{ question.title }}</p>
+      <p class="streak">⚠️ This will reset your streak of {{ current_streak }} day{{ 's' if current_streak != 1 else '' }}.</p>
+      <form method="POST" action="/respond">
+        <input type="hidden" name="token" value="{{ token }}">
+        <input type="hidden" name="action" value="SKIP">
+        <button type="submit" class="btn btn-skip">Yes, skip today</button>
+      </form>
+    {% endif %}
+    <p class="note">Tokens expire at 9 AM tomorrow IST.</p>
+  </div>
+</body>
+</html>

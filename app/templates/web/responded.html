@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeetStreak — Response Recorded</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #f5f6fa; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .card { background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: 40px 36px; max-width: 480px; width: 100%; text-align: center; }
+    .icon { font-size: 56px; margin-bottom: 16px; }
+    h1 { font-size: 24px; color: #2d3436; margin-bottom: 8px; }
+    .subtitle { font-size: 15px; color: #636e72; margin-bottom: 24px; }
+    .stats { background: #f8f9fa; border-radius: 8px; padding: 20px; text-align: left; }
+    .stat { font-size: 14px; color: #2d3436; margin-bottom: 8px; }
+    .stat:last-child { margin-bottom: 0; }
+    .level-up { background: #fdcb6e; border-radius: 8px; padding: 12px 16px; margin-top: 16px; font-size: 14px; font-weight: bold; color: #2d3436; }
+    .error { background: #fff5f5; border: 1px solid #ff7675; border-radius: 8px; padding: 16px; color: #d63031; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    {% if error %}
+      <div class="icon">⚠️</div>
+      <h1>Something went wrong</h1>
+      <div class="error">{{ error }}</div>
+    {% elif action == "DONE" %}
+      <div class="icon">🔥</div>
+      <h1>Streak: {{ current_streak }} day{{ 's' if current_streak != 1 else '' }}</h1>
+      <p class="subtitle">{{ question_title }} — marked as solved. +{{ earned_points }} pts</p>
+      <div class="stats">
+        <p class="stat">🏆 Longest streak: {{ longest_streak }} days</p>
+        <p class="stat">📊 Total solved: {{ total_solved }}</p>
+        <p class="stat">📈 Total points: {{ total_points }}</p>
+        <p class="stat">🎖 Level: {{ level_name }}</p>
+      </div>
+      {% if level_up %}
+      <div class="level-up">🎉 Level up! You're now a {{ level_name }}</div>
+      {% endif %}
+    {% else %}
+      <div class="icon">💔</div>
+      <h1>Streak reset</h1>
+      <p class="subtitle">Skipped today. Come back stronger tomorrow.</p>
+      <div class="stats">
+        <p class="stat">📊 Total solved: {{ total_solved }}</p>
+        <p class="stat">🏆 Longest streak: {{ longest_streak }} days</p>
+        <p class="stat">🎖 Level: {{ level_name }}</p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
