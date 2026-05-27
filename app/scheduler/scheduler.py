@@ -12,8 +12,8 @@ scheduler = BackgroundScheduler(timezone="Asia/Kolkata")
 scheduler.add_job(
     run_daily_email_job,
     trigger="cron",
-    hour=22,
-    minute=5,
+    hour=23,
+    minute=30,
     id="daily_email",
     replace_existing=True,
 )
