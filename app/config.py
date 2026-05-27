@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     # Application
-    app_base_url: str = "http://localhost:8000"
+    app_base_url: str = "http://34.197.110.168:8000"
     log_level: str = "INFO"
 
     # Database
